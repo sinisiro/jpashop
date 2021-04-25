@@ -15,6 +15,7 @@ groupId: jpabook artifactId: jpashop
 윈도우 설치 버전: https://h2database.com/h2-setup-2019-10-14.exe 윈도우, 맥, 리눅스 실행 버전: https://h2database.com/h2-2019-10-14.zip
 https://www.h2database.com
 다운로드 및 설치 데이터베이스 파일 생성 방법
-jdbc:h2:~/jpashop (최소 한번)
-~/jpashop.mv.db 파일 생성 확인
-이후 부터는 jdbc:h2:tcp://localhost/~/jpashop 이렇게 접속
+1. ./h2.sh 실행
+2.jdbc:h2:~/jpashop (최소 한번)
+3. ~/jpashop.mv.db 파일 생성 확인
+이후 부터는 jdbc:h2:tlscp://localhost/~/jpashop 이렇게 접속
