@@ -18,7 +18,11 @@ spring:
 
 #logging.level:
 #  org.hibernate.SQL: debug
-
+  mvc:
+    static-path-pattern: /**
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
 server:
   port: 8090

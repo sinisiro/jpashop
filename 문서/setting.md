@@ -19,3 +19,6 @@ https://www.h2database.com
 2.jdbc:h2:~/jpashop (최소 한번)
 3. ~/jpashop.mv.db 파일 생성 확인
 이후 부터는 jdbc:h2:tlscp://localhost/~/jpashop 이렇게 접속
+   
+04.26
+css 적용안될때는 폴더에서 컴파일해보면 됨
