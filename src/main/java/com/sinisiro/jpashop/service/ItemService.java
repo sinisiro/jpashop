@@ -45,16 +45,24 @@ public class ItemService {
     }
 
     @Transactional
-    public void updateItem(Long id, String name, int price, String isbn, String author) {
+    public void updateItem(Long id, String name, int price, String isbn, String author, int stockQuantity) {
         Book book = bookRepository.findOne(id);
 
         book.setName(name);
         book.setPrice(price);
         book.setIsbn(isbn);
         book.setAuthor(author);
+        book.setStockQuantity(stockQuantity);
 //        Item item = itemRepository.findOne(id);
 
 //        item.setName(name);
 //        item.setPrice(price);
+    }
+
+    @Transactional
+    public void deleteItem(Long id) {
+        Item findItem = itemRepository.findOne(id);
+        itemRepository.delete(findItem);
+
     }
 }

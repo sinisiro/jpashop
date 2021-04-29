@@ -25,6 +25,10 @@ public class ItemRepository {
         return em.find(Item.class,id);
     }
 
+    public void delete(Item item){
+            em.remove(item);
+    }
+
 
     public List<Item> findAll() {
         return em.createQuery("select i from Item i",Item.class).getResultList();

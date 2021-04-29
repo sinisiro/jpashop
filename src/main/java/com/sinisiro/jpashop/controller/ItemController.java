@@ -101,7 +101,16 @@ public class ItemController {
      */
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
-        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getIsbn(), form.getAuthor());
+        itemService.updateItem(form.getId(), form.getName(), form.getPrice(), form.getIsbn(), form.getAuthor(), form.getStockQuantity());
+        return "redirect:/items";
+    }
+
+    /**
+     *상품 삭제
+     */
+    @GetMapping(value = "/items/{itemId}/delete")
+    public String deleteItem(@PathVariable("itemId") Long itemId) {
+        itemService.deleteItem(itemId);
         return "redirect:/items";
     }
 
