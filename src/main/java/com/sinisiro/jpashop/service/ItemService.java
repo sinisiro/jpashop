@@ -1,6 +1,8 @@
 package com.sinisiro.jpashop.service;
 
+import com.sinisiro.jpashop.domain.Book;
 import com.sinisiro.jpashop.domain.Item;
+import com.sinisiro.jpashop.repository.BookRepository;
 import com.sinisiro.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,15 +12,28 @@ import java.util.List;
 
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor        //final로 선언해야함
 @Transactional(readOnly = true)
 public class ItemService {
 
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
+    private final BookRepository bookRepository;
 
     @Transactional
-    public void save(Item item) {
+    public void saveItem(Item item) {
+
         itemRepository.save(item);
+    }
+
+    public void findItem(Item item){
+        Item findItem = itemRepository.findOne(item.getId());
+
+        findItem.setName(item.getName());
+        findItem.setPrice(item.getPrice());
+        findItem.setStockQuantity(item.getStockQuantity());
+
+
+
     }
 
     public List<Item> findItems() {
@@ -29,5 +44,17 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
+    @Transactional
+    public void updateItem(Long id, String name, int price, String isbn, String author) {
+        Book book = bookRepository.findOne(id);
 
+        book.setName(name);
+        book.setPrice(price);
+        book.setIsbn(isbn);
+        book.setAuthor(author);
+//        Item item = itemRepository.findOne(id);
+
+//        item.setName(name);
+//        item.setPrice(price);
+    }
 }
