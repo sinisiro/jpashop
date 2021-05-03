@@ -6,6 +6,7 @@ spring:
   datasource:
 #    url: jdbc:h2:mem:test   #없애도 돌아감(자동으로 메모리모드로 설정함)
     url: jdbc:h2:tcp://localhost/~/jpashop
+#    url: jdbc:h2:mem:jpashop
     username: sa
     password:
     driver-class-name: org.h2.Driver
