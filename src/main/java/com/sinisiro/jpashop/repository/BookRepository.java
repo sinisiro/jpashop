@@ -1,6 +1,7 @@
 package com.sinisiro.jpashop.repository;
 
 import com.sinisiro.jpashop.domain.Book;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

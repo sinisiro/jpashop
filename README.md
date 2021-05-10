@@ -1,6 +1,5 @@
 # jpashop
 
-
-CMD+Alt+N : 인라인 합치기 
-
-
+@AllArgsConstructor
+@NoArgsConstructor
+->https://dingue.tistory.com/14

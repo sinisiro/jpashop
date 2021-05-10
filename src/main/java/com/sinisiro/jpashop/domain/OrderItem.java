@@ -1,5 +1,6 @@
 package com.sinisiro.jpashop.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@Builder
 public class OrderItem {
     @Id
     @GeneratedValue
@@ -25,10 +27,18 @@ public class OrderItem {
     private int count;
 
     public static OrderItem createOrderItem(Item item, int orderPrice, int count){
-        OrderItem orderItem = new OrderItem();
-        orderItem.setItem(item);
-        orderItem.setOrderPrice(orderPrice);
-        orderItem.setCount(count);
+
+        // builder패턴으로 변경
+        OrderItem orderItem = OrderItem.builder()
+                .item(item)
+                .orderPrice(orderPrice)
+                .count(count)
+                .build();
+
+//        OrderItem orderItem = new OrderItem();
+//        orderItem.setItem(item);
+//        orderItem.setOrderPrice(orderPrice);
+//        orderItem.setCount(count);
 
         item.removeStock(count);
         return orderItem;

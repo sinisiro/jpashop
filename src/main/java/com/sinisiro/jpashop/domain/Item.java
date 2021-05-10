@@ -1,9 +1,10 @@
 package com.sinisiro.jpashop.domain;
 
 
-
 import com.sinisiro.jpashop.exception.NotEnoughStockException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -14,6 +15,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="dtype")
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Item {
 
     @Id

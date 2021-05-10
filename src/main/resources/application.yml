@@ -9,8 +9,8 @@ spring:
       cache: false
 
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop
-#    url: jdbc:h2:mem:jpashop
+#    url: jdbc:h2:tcp://localhost/~/jpashop
+    url: jdbc:h2:mem:jpashop
     username: sa
     password:
     driver-class-name: org.h2.Driver

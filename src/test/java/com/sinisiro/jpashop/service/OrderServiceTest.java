@@ -90,10 +90,15 @@ public class OrderServiceTest {
     }
 
     private Item createBook(String name, int price, int stockQuantity) {
-        Book book = new Book();
-        book.setName(name);
-        book.setStockQuantity(stockQuantity);
-        book.setPrice(price);
+        Book book = Book.builder()
+                .name(name)
+                .stockQuantity(stockQuantity)
+                .price(price)
+                .build();
+//        Book book = new Book();
+//        book.setName(name);
+//        book.setStockQuantity(stockQuantity);
+//        book.setPrice(price);
         em.persist(book);
         return book;
     }
