@@ -34,7 +34,7 @@ public class MemberRepositoryTest {
         test.setId(3L);
 
         em.remove(test);
-        
+
 //        Member member = new Member();
 //
 //        member

@@ -44,6 +44,8 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
+
+    //수정시 해당겍체 찾아서 진행하면 됨
     @Transactional
     public void updateItem(Long id, String name, int price, String isbn, String author, int stockQuantity) {
         Book book = bookRepository.findOne(id);

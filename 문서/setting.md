@@ -25,3 +25,12 @@ https://www.h2database.com
    
 04.26
 css 적용안될때는 폴더에서 컴파일해보면 됨
+
+# 빌드 및 실행
+ - 실행시 테스트 모듈이 모두 정상이어야함
+ - gradle build -x test  // 테스트 모듈 제외 
+콘솔로 이동
+1. ./gradlew build
+2. cd build/libs
+3. java -jar hello-spring-0.0.1-SNAPSHOT.jar
+4. 실행확인
