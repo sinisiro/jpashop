@@ -44,6 +44,18 @@ public class MemberService {
     }
 
     /**
+     *
+     * 회원정보 수정
+     */
+    @Transactional
+    public void update(Long id, String name)
+    {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
+
+
+    /**
      * 전체회원 조회
      * 
      */

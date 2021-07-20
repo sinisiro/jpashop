@@ -65,4 +65,50 @@ public class OrderRepository {
                 .getResultList();
 
     }
+
+    public List<Order> findAllWithMemberDelivery() {
+
+        return em.createQuery(
+                "select o from Order o" +
+                    " join fetch o.member m" +
+                    " join fetch o.delivery d", Order.class) .getResultList();
+
+    }
+//25page
+    public List<Order> findAllWithMemberDelivery2(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+
+    }
+
+
+
+    public List<OrderSimpleQueryDto> findOrderDtos()
+    {
+        return em.createQuery(
+                "select new com.sinisiro.jpashop.repository.OrderSimpleQueryDto" +
+                        "(o.id, m.name, o.orderdate, o.status, d.address)"+
+                    " from Order o" +
+                    " join o.member m" +
+                    " join o.delivery d", OrderSimpleQueryDto.class)
+            .getResultList();
+    }
+
+
+    public List<Order> findAllWithItem() {
+
+        return em.createQuery(
+                "select distinct o from Order o"+
+                        " join fetch o.member m"+
+                        " join fetch o.delivery d"+
+                        " join fetch o.orderItems oi"+
+                        " join fetch oi.item i", Order.class)
+                .getResultList();
+
+    }
 }

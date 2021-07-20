@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Builder
+//@Builder  //빌더 패턴 사용할 경우
 public class OrderItem {
     @Id
     @GeneratedValue
@@ -26,19 +26,20 @@ public class OrderItem {
     private int orderPrice;
     private int count;
 
+
     public static OrderItem createOrderItem(Item item, int orderPrice, int count){
 
         // builder패턴으로 변경
-        OrderItem orderItem = OrderItem.builder()
-                .item(item)
-                .orderPrice(orderPrice)
-                .count(count)
-                .build();
+//        OrderItem orderItem = OrderItem.builder()
+//                .item(item)
+//                .orderPrice(orderPrice)
+//                .count(count)
+//                .build();
 
-//        OrderItem orderItem = new OrderItem();
-//        orderItem.setItem(item);
-//        orderItem.setOrderPrice(orderPrice);
-//        orderItem.setCount(count);
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
 
         item.removeStock(count);
         return orderItem;
