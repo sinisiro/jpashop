@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class OrderQueryRepository {
 
     private final EntityManager em;
 
-    /**
+    /**v4
      * 컬렉션은 별도로 조회
      * Query: 루트 1번, 컬렉션 N 번 * 단건 조회에서 많이 사용하는 방식 */
     public List<OrderQueryDto> findOrderQueryDtos() {
@@ -43,7 +46,6 @@ public class OrderQueryRepository {
                 .setParameter("orderId", orderId)
                 .getResultList();
     }
-
     private List<OrderQueryDto> findOrders() {
         return em.createQuery(
         "select new com.sinisiro.jpashop.repository.order.OrderQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
@@ -51,6 +53,44 @@ public class OrderQueryRepository {
         " join o.member m" +
         " join o.delivery d", OrderQueryDto.class)
             .getResultList();
+
+    }
+//OrderQueryRepository에 추가 /**
+
+    /** 최적화
+    * Query: 루트 1번, 컬렉션 1번
+    * 데이터를 한꺼번에 처리할 때 많이 사용하는 방식
+     *  v4/v5 차이는 MAP을 사용해서 매칭 성능 향상(O(1))
+    */
+    public List<OrderQueryDto> findAllByDto_optimization() {
+        List<OrderQueryDto> result = findOrders();
+
+        //인자별 쿼리결과를 담은뒤 출력해줌
+        Map<Long, List<OrderItemQueryDto>> orderItemMap = findOrderItemMap(toOrderIds(result));
+        result.forEach((o->o.setOrderItems(orderItemMap.get(o.getOrderId()))));
+
+        return result;
+    }
+
+    private List<Long> toOrderIds(List<OrderQueryDto> result){
+        log.info("[stream]:"+String.valueOf(result.stream()));
+        log.info("[stream3]:"+String.valueOf(result.stream().map(o->o.getOrderId()).collect(Collectors.toList())));//[4, 11]
+        //list를 직렬화 = stream
+        return result.stream()
+                .map(o->o.getOrderId())
+                .collect(Collectors.toList());
+    }
+
+    private Map<Long, List<OrderItemQueryDto>>  findOrderItemMap(List<Long> orderIds){
+        List<OrderItemQueryDto> orderItems = em.createQuery(
+                "select new com.sinisiro.jpashop.repository.order.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice,oi.count)"+
+                        " from OrderItem oi" +
+                        " join oi.item i" +
+                        " where oi.order.id in :orderIds", OrderItemQueryDto.class)
+                .setParameter("orderIds", orderIds) .getResultList();
+
+        return orderItems.stream()
+                .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
 
     }
 }
