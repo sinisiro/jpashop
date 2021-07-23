@@ -69,7 +69,7 @@ public class OrderSimpleApiController {
      * - select 절에서 원하는 데이터만 선택해서 조회 */
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDto> ordersV4() {
-        return orderRepository.findOrderDtos();
+        return orderRepository.findOrderQueryDtos();
     }
 
 
@@ -83,7 +83,7 @@ public class OrderSimpleApiController {
         public SimpleOrderDto(Order order) {
             orderId = order.getId();
             name = order.getMember().getName();
-            orderDate = order.getOrderdate();
+            orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
         }

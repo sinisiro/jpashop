@@ -88,7 +88,7 @@ public class OrderRepository {
 
 
 
-    public List<OrderSimpleQueryDto> findOrderDtos()
+    public List<OrderSimpleQueryDto> findOrderQueryDtos()
     {
         return em.createQuery(
                 "select new com.sinisiro.jpashop.repository.OrderSimpleQueryDto" +
