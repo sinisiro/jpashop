@@ -4,6 +4,7 @@ import com.sinisiro.jpashop.domain.*;
 import com.sinisiro.jpashop.repository.OrderQueryRepository;
 import com.sinisiro.jpashop.repository.OrderRepository;
 import com.sinisiro.jpashop.repository.order.OrderQueryDto;
+import io.swagger.annotations.Api;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
@@ -19,6 +20,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = { "2. OrderApiController" }, description = "주문 정보(최적화)") // Swagger 최상단 Controller 명칭
 public class OrderApiController {
 
     private final OrderRepository orderRepository;

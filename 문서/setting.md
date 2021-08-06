@@ -34,3 +34,4 @@ css 적용안될때는 폴더에서 컴파일해보면 됨
 2. cd build/libs
 3. java -jar hello-spring-0.0.1-SNAPSHOT.jar
 4. 실행확인
+

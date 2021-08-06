@@ -3,6 +3,7 @@ package com.sinisiro.jpashop.api;
 import com.sinisiro.jpashop.domain.*;
 import com.sinisiro.jpashop.repository.OrderRepository;
 import com.sinisiro.jpashop.repository.OrderSimpleQueryDto;
+import io.swagger.annotations.Api;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = { "3. OrderSimpleApiController" }, description = "주문 정보") // Swagger 최상단 Controller 명칭
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;

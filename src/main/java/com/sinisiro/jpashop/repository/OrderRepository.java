@@ -92,7 +92,7 @@ public class OrderRepository {
     {
         return em.createQuery(
                 "select new com.sinisiro.jpashop.repository.OrderSimpleQueryDto" +
-                        "(o.id, m.name, o.orderdate, o.status, d.address)"+
+                        "(o.id, m.name, o.orderDate, o.status, d.address)"+
                     " from Order o" +
                     " join o.member m" +
                     " join o.delivery d", OrderSimpleQueryDto.class)
