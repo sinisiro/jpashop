@@ -22,9 +22,10 @@ spring:
         ddl-auto: create-drop
         format_sql: true
         default_batch_fetch_size: 1000
+    open-in-view: true
 
 
-#logging.level:
+    #logging.level:
 #  org.hibernate.SQL: debug
   mvc:
     static-path-pattern: /static/**

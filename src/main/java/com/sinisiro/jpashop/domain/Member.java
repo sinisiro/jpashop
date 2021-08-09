@@ -18,13 +18,13 @@ public class Member {
     private Long id;
     private String name;
 
-    public Member() {
-    }
-
-    public Member(String name, HomeAddress address) {
-        this.name = name;
-        this.address = address;
-    }
+//    public Member() {
+//    }
+//
+//    public Member(String name, HomeAddress address) {
+//        this.name = name;
+//        this.address = address;
+//    }
 
     @Embedded
     private HomeAddress address;

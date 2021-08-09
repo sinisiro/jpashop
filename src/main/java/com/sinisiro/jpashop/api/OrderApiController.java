@@ -3,7 +3,9 @@ package com.sinisiro.jpashop.api;
 import com.sinisiro.jpashop.domain.*;
 import com.sinisiro.jpashop.repository.OrderQueryRepository;
 import com.sinisiro.jpashop.repository.OrderRepository;
+import com.sinisiro.jpashop.repository.order.OrderDto;
 import com.sinisiro.jpashop.repository.order.OrderQueryDto;
+import com.sinisiro.jpashop.service.order.OrderQueryService;
 import io.swagger.annotations.Api;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ public class OrderApiController {
 
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
+
+    private final OrderQueryService orderQueryService;
 
     /**
      * V1. 엔티티 직접 노출
@@ -56,6 +60,17 @@ public class OrderApiController {
 
         return result;
     }
+
+    /**
+     V2_inline. 엔티티를 조회해서 DTO로 변환(fetch join 사용X)
+     * - 트랜잭션 안에서 지연 로딩 필요
+     *  OSIV 껏을떄
+     * */
+    @GetMapping("/api/v2/orders_inline")
+    public List<OrderDto> ordersV2_inline() {
+        return orderQueryService.ordersV2_inline();
+    }
+
     /**
     *   V3. 엔티티를 조회해서 DTO로 변환(fetch join 사용O)
     * - 페이징 시에는 N 부분을 포기해야함(대신에 batch fetch size? 옵션 주면 N -> 1 쿼리로 변경
@@ -103,36 +118,4 @@ public class OrderApiController {
 
 
 
-    @Data
-    static class OrderDto {
-        private Long orderId;
-        private String name;
-        private LocalDateTime orderDate; //주문시간
-        private OrderStatus orderStatus;
-        private HomeAddress address;
-        private List<OrderItemDto> orderItems;
-
-        public OrderDto(Order order) {
-            orderId = order.getId();
-            name = order.getMember().getName();
-            orderDate = order.getOrderDate();
-            orderStatus = order.getStatus();
-            address = order.getDelivery().getAddress();
-            orderItems = order.getOrderItems().stream()
-                    .map(orderItem -> new OrderItemDto(orderItem)).collect(toList());
-        }
-
-        @Data
-        static class OrderItemDto {
-            private String itemName;//상품 명
-            private int orderPrice; //주문 가격
-            private int count; //주문 수량
-
-            public OrderItemDto(OrderItem orderItem) {
-                itemName = orderItem.getItem().getName();
-                orderPrice = orderItem.getOrderPrice();
-                count = orderItem.getCount();
-            }
-        }
-    }
 }
